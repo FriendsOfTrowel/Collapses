@@ -1,0 +1,41 @@
+{
+  "name": "trowel-collapses",
+  "homepage": "https://github.com/FriendsOfTrowel/Collapses",
+  "authors": [
+    "Loïc Goyet <loic@troopers.email>"
+  ],
+  "description": "The official Trowel Component for collapses",
+  "main": [
+    "src/scss/collapses.scss",
+    "dest/javascript/collapses.js",
+    "injector.json"
+  ],
+  "moduleType": "globals",
+  "keywords": [
+    "scss",
+    "css",
+    "javascript",
+    "js",
+    "trowel",
+    "trowel-collapses",
+    "collapse"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    ".bowerrc",
+    ".gitignore",
+    "gulpfile.js",
+    "package.json",
+    "sache.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FriendsOfTrowel/Collapses.git"
+  },
+  "dependencies": {
+    "trowel-core": "^3.2.0"
+  }
+}

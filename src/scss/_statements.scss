@@ -1,0 +1,37 @@
+/**
+ * Collapses
+ */
+
+@mixin mixin-dispatcher($value, $flags, $mixin) {
+  @if $mixin == 'collapses--mixin-example' {
+    @include collapses--mixin-example($value, $flags);
+  }
+};
+
+$collapse--selector: selector--constructor($collapses--synthax, 'collapse');
+
+@include selector($collapse--selector) {
+  // @include declaration('-include-collapses--mixin-example', $collapses--var);
+  @include declaration('font-size', $collapses--font-size);
+  @include declaration('font-family', $collapses--font-family);
+  @include declaration('font-weight', $collapses--font-weight);
+  @include declaration('text-transform', $collapses--text-transform);
+  @include declaration('letter-spacing', $collapses--letter-spacing);
+  @include declaration('line-height', $collapses--line-height);
+  @include declaration('text-align', $collapses--text-align);
+  @include declaration('text-decoration', $collapses--text-decoration);
+  @include declaration('margin', $collapses--margin);
+  @include declaration('border-width', $collapses--border-width);
+  @include declaration('border-style', $collapses--border-style);
+  @include declaration('border-color', $collapses--border-color);
+  @include declaration('border-radius', $collapses--border-radius);
+  @include declaration('color', $collapses--color);
+  @include declaration('box-shadow', $collapses--box-shadow);
+  @include declaration('background', $collapses--background);
+  @include declaration('background-color', $collapses--background-color);
+  @include declaration('display', none);
+  @include declaration('display', block, ('[data-state="visible"'));
+
+
+  @include block-generation($collapse--selector);
+}

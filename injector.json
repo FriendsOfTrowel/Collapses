@@ -1,0 +1,14 @@
+{
+  "stylevendors": [
+    "@bower/trowel-trowel-collapses/src/scss/collapses.scss"
+  ],
+  "scriptvendors": [
+    "@bower/trowel-trowel-collapses/dest/javascript/collapses.min.js"
+  ],
+  "stylegui": [
+    "@bower/trowel-trowel-collapses//collapses-styleguide.scss"
+  ],
+  "templategui": [
+    "@bower/trowel-trowel-collapses//collapses-styleguide.html.twig"
+  ]
+}
