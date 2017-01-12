@@ -24,9 +24,11 @@
         Collapses
     </h1>
 
-    <button data-collapse="toggle" data-href="#collapse-ex-1" data-activeclass="active">toggle</button>
-    <button data-collapse="show" data-href="#collapse-ex-1" data-activeclass="active-2">show</button>
-    <button data-collapse="hide" data-href="#collapse-ex-1" data-activeclass="active">hide</button>
+    <h2>Simple collapse</h2>
+
+    <a data-collapse="toggle" data-href="#collapse-ex-1" data-activeclass="active">toggle</a>
+    <a data-collapse="show" data-href="#collapse-ex-1" data-activeclass="active-2">show</a>
+    <a data-collapse="hide" data-href="#collapse-ex-1" data-activeclass="active">hide</a>
 
     <div class="collapse" id="collapse-ex-1" data-flag="collapse">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -34,21 +36,34 @@
 
     <hr>
 
-    <button data-collapse="show" data-href="#collapse-ex-2-1" data-activeclass="active">tab 1</button>
-    <button data-collapse="show" data-href="#collapse-ex-2-2" data-activeclass="active">tab 2</button>
-    <button data-collapse="show" data-href="#collapse-ex-2-3" data-activeclass="active">tab 3</button>
+    <h2>Accordion</h2>
 
-    <div class="collapse" id="collapse-ex-2-1" data-flag="collapse" data-group="tab-ex" data-state="visible">
-        tab 1
+    <div class="accordion">
+        <a class="accordion__trigger" data-collapse="show" data-href="#collapse-ex-2-1" data-activeclass="accordion__trigger--active">tab 1</a>
+
+        <div class="collapse accordion__collapse" id="collapse-ex-2-1" data-flag="collapse" data-group="tab-ex" data-state="visible">
+            tab 1
+        </div>
     </div>
 
-    <div class="collapse" id="collapse-ex-2-2" data-flag="collapse" data-group="tab-ex">
-        tab 2
+    <div class="accordion">
+        <a class="accordion__trigger" data-collapse="show" data-href="#collapse-ex-2-2" data-activeclass="accordion__trigger--active">tab 2</a>
+
+        <div class="collapse accordion__collapse" id="collapse-ex-2-2" data-flag="collapse" data-group="tab-ex">
+            tab 2
+        </div>
     </div>
 
-    <div class="collapse" id="collapse-ex-2-3" data-flag="collapse" data-group="tab-ex">
-        tab 3
+    <div class="accordion">
+        <a class="accordion__trigger" data-collapse="show" data-href="#collapse-ex-2-3" data-activeclass="accordion__trigger--active">tab 3</a>
+
+        <div class="collapse accordion__collapse" id="collapse-ex-2-3" data-flag="collapse" data-group="tab-ex">
+            tab 3
+        </div>
     </div>
+
+    <hr>
+
 
 
     <script src="./javascript/collapses.js"></script>

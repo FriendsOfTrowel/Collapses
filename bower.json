@@ -36,6 +36,6 @@
     "url": "git+https://github.com/FriendsOfTrowel/Collapses.git"
   },
   "dependencies": {
-    "trowel-core": "^3.2.0"
+    "trowel-core": "^3.3.0"
   }
 }
