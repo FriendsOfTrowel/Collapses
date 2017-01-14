@@ -1,0 +1,72 @@
+$accordions--font-size: trwl-theme-size('md') !default;
+$accordions--font-family: trwl-theme('font-family') !default;
+$accordions--font-weight: null !default;
+$accordions--text-transform: null !default;
+$accordions--letter-spacing: null !default;
+$accordions--line-height: null !default;
+$accordions--text-align: null !default;
+$accordions--text-decoration: null !default;
+$accordions--margin: 0.5em 0 !default;
+$accordions--border-width: trwl-theme('border-width') !default;
+$accordions--border-style: trwl-theme('border-style') !default;
+$accordions--border-color: trwl-theme-color('gray-dark') !default;
+$accordions--border-radius:  trwl-theme('border-radius') !default;
+$accordions--color: null !default;
+$accordions--box-shadow: null !default;
+$accordions--background: null !default;
+$accordions--background-color: null !default;
+$accordions--padding-x: null !default;
+$accordions--padding-y: null !default;
+
+$accordions-anchor--font-size: null !default;
+$accordions-anchor--font-family: null !default;
+$accordions-anchor--font-weight: null !default;
+$accordions-anchor--text-transform: null !default;
+$accordions-anchor--letter-spacing: null !default;
+$accordions-anchor--line-height: null !default;
+$accordions-anchor--text-align: null !default;
+$accordions-anchor--text-decoration: null !default;
+$accordions-anchor--margin: null !default;
+$accordions-anchor--border-width: null !default;
+$accordions-anchor--border-style: null !default;
+$accordions-anchor--border-color: null !default;
+$accordions-anchor--border-radius: null !default;
+$accordions-anchor--color: rgb(255, 255, 255) !default;
+$accordions-anchor--box-shadow: null !default;
+$accordions-anchor--background: null !default;
+$accordions-anchor--background-color: (
+  'default': trwl-theme-color('primary'),
+  ':hover': lighten(trwl-theme-color('primary'), 5%),
+  ':active': lighten(trwl-theme-color('primary'), 5%),
+  ':focus': lighten(trwl-theme-color('primary'), 5%),
+  '~active': (
+    'default': trwl-theme-color('danger'),
+    ':hover': lighten(trwl-theme-color('danger'), 5%),
+    ':active': lighten(trwl-theme-color('danger'), 5%),
+    ':focus': lighten(trwl-theme-color('danger'), 5%),
+  )
+) !default;
+$accordions-anchor--padding-x: trwl-theme('padding-x') !default;
+$accordions-anchor--padding-y: trwl-theme('padding-y') !default;
+
+
+
+$accordion-collapse--font-size: null !default;
+$accordion-collapse--font-family: null !default;
+$accordion-collapse--font-weight: null !default;
+$accordion-collapse--text-transform: null !default;
+$accordion-collapse--letter-spacing: null !default;
+$accordion-collapse--line-height: null !default;
+$accordion-collapse--text-align: null !default;
+$accordion-collapse--text-decoration: null !default;
+$accordion-collapse--margin: null !default;
+$accordion-collapse--border-width: null !default;
+$accordion-collapse--border-style: null !default;
+$accordion-collapse--border-color: null !default;
+$accordion-collapse--border-radius: null !default;
+$accordion-collapse--color: null !default;
+$accordion-collapse--box-shadow: null !default;
+$accordion-collapse--background: null !default;
+$accordion-collapse--background-color: null !default;
+$accordion-collapse--padding-x: trwl-theme('padding-x') !default;
+$accordion-collapse--padding-y: trwl-theme('padding-y') !default;

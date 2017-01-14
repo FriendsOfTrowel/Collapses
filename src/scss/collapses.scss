@@ -1,6 +1,11 @@
 @import 'mixins/mixin-example';
 
 @import 'variables/synthax';
-@import 'variables/theme';
 
-@import 'statements';
+@import 'variables/collapse-theme';
+@import 'variables/accordion-theme';
+@import 'variables/tab-theme';
+
+@import 'collapse-statements';
+@import 'accordion-statements';
+@import 'tab-statements';
