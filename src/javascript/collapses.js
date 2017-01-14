@@ -1,96 +1,142 @@
 class TrowelCollapses {
     constructor(elements) {
-        elements.forEach(function(element, index) {
-            let element_obj = new TrowelCollapse(element);
-        })
+        elements.forEach(element => new TrowelCollapse(element));
     }
 }
 
 class TrowelCollapse {
-    constructor(collapse) {
-        this._collapse = collapse;
+    constructor(collapse, nested = true) {
+        this.collapse = collapse;
+        this.nested = nested;
 
-        const { triggerers, togglers, showers, hidders } = this.getTriggerer();
-        this._triggerers = triggerers;
-        this._togglers = togglers;
-        this._showers = showers;
-        this._hidders = hidders;
-
-        this._group = this.getGroup();
-
-        if (this._collapse.getAttribute('data-state') == 'visible') {
-            this.show();
+        if (this.isVisible) {
+            this.show()
         } else {
             this.hide();
         }
 
-        return this._listeners();
+        return this.listeners();
     }
 
     show() {
-        this._collapse.setAttribute('data-state', 'visible');
-        this._triggerers.forEach(triggerer => this.triggererAddActiveClass(triggerer));
-        if (!this._group) return;
+        this.collapse.setAttribute('data-state', 'visible');
 
-        this._group.forEach(collapse => this.hide(collapse));
+        this.triggers
+            .forEach(trigger => trigger.addActiveclass());
+
+        this.otherCollapsesFromGroup
+            .forEach(collapse => collapse.hide());
         return;
     }
 
-    hide(collapse = this._collapse) {
-        collapse.setAttribute('data-state', 'hidden');
+    hide() {
+        this.collapse.setAttribute('data-state', 'hidden');
 
-        const { triggerers, togglers, showers, hidders } = this.getTriggerer(collapse);
-        triggerers.forEach(triggerer => this.triggererRemoveActiveClass(triggerer));
+        this.triggers
+            .forEach(trigger => trigger.removeActiveclass());
         return;
     }
 
     toggle() {
-        if (this._collapse.getAttribute('data-state') == 'visible') return this.hide();
+        if (this.isVisible) return this.hide();
         return this.show();
     }
 
-    getTriggerer(collapse = this._collapse) {
-        const triggerers = document.querySelectorAll(`[data-collapse][data-href="#${collapse.id}"]`);
-        const togglers = document.querySelectorAll(`[data-collapse="toggle"][data-href="#${collapse.id}"]`);
-        const showers = document.querySelectorAll(`[data-collapse="show"][data-href="#${collapse.id}"]`);
-        const hidders = document.querySelectorAll(`[data-collapse="hide"][data-href="#${collapse.id}"]`);
-        return { triggerers, togglers, showers, hidders }
+    get isVisible () {
+        return this.collapse.getAttribute('data-state') == 'visible';
     }
 
-    getTriggererActiveClass(triggerer) {
-        const activeClass = triggerer.dataset.activeclass;
-        return activeClass ? activeClass : null;
+    get isHidden () {
+        return this.collapse.getAttribute('data-state') == 'hidden';
     }
 
-    triggererAddActiveClass(triggerer) {
-        const activeClass = this.getTriggererActiveClass(triggerer);
-        if (!activeClass) return;
-        return triggerer.classList.add(activeClass);
+    get groupName () {
+        return this.collapse.dataset.group;
     }
 
-    triggererRemoveActiveClass(triggerer) {
-        const activeClass = this.getTriggererActiveClass(triggerer);
-        if (!activeClass) return;
-        return triggerer.classList.remove(activeClass);
+    get isEffectingOtherCollapsesFromGroup () {
+        return this.groupName && this.nested;
     }
 
-    getGroup() {
-        const groupName = this._collapse.dataset.group;
-        if (!groupName) return null;
+    get otherCollapsesFromGroup () {
+        if (!this.isEffectingOtherCollapsesFromGroup) return [];
+        const groupList = document.querySelectorAll(`[data-group="${this.groupName}"]`);
 
-        const group = document.querySelectorAll(`[data-group="${groupName}"]`);
-
-        // Convert the nodelist as array in order to make possible .filter()
-        const groupArr = Array.prototype.slice.call(group);
-
-        // Return group without this._collapse
-        return groupArr.filter(collapse => collapse != this._collapse);
+        return Array.prototype.slice.call(groupList) // convert the nodelist as array
+            .filter(collapse => collapse != this.collapse) // exclude `this` from the arr
+            .map(collapse => new TrowelCollapse(collapse, false))
     }
 
-    _listeners() {
-        this._togglers.forEach(toggler => toggler.addEventListener('click', () => this.toggle()));
-        this._showers.forEach(shower => shower.addEventListener('click', () => this.show()));
-        this._hidders.forEach(hidder => hidder.addEventListener('click', () => this.hide()));
+    listeners() {
+        if (!this.nested) return false;
+
+        this.toggleTriggers
+            .forEach(trigger => trigger.domEl.addEventListener('click', () => this.toggle()));
+
+        this.showTriggers
+            .forEach(trigger => trigger.domEl.addEventListener('click', () => this.show()));
+
+        this.hideTriggers
+            .forEach(trigger => trigger.domEl.addEventListener('click', () => this.hide()));
     }
 
+    get triggers () {
+        const triggerDomList = document.querySelectorAll(`[data-collapse][data-href="#${this.collapse.id}"]`);
+        return Array.prototype.slice.call(triggerDomList) // convert the nodelist as array
+            .map(trigger => new TrowelCollapseTrigger(trigger));
+    }
+
+    get toggleTriggers () {
+        return this.triggers
+            .filter(trigger => trigger.isToggleAction);
+    }
+
+    get showTriggers () {
+        return this.triggers
+            .filter(trigger => trigger.isShowAction);
+    }
+
+    get hideTriggers () {
+        return this.triggers
+            .filter(trigger => trigger.isHideAction);
+    }
+}
+
+
+class TrowelCollapseTrigger {
+    constructor(domEl) {
+        this.domEl = domEl;
+    }
+
+    get activeclass () {
+        return this.domEl.dataset.activeclass;
+    }
+
+    get action () {
+        return this.domEl.dataset.collapse;
+    }
+
+    get isToggleAction () {
+        return this.action == 'toggle';
+    }
+
+    get isShowAction () {
+        return this.action == 'show';
+    }
+
+    get isHideAction () {
+        return this.action == 'hide';
+    }
+
+    addActiveclass() {
+        return this.domEl.classList.add(this.activeclass);
+    }
+
+    removeActiveclass() {
+        return this.domEl.classList.remove(this.activeclass);
+    }
+
+    toggleActiveclass() {
+        return this.domEl.classList.toggle(this.activeclass);
+    }
 }
