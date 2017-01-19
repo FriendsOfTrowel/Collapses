@@ -1,91 +1,93 @@
-/**
- * accordion
- */
+@if $accordions--enable {
+  /**
+   * accordion
+   */
 
-$accordion--selector: selector--constructor($accordions--synthax, 'accordion');
+  $accordion--selector: selector--constructor($accordions--synthax, 'accordion');
 
-@include selector($accordion--selector) {
-  @include declaration('font-size', $accordions--font-size);
-  @include declaration('font-family', $accordions--font-family);
-  @include declaration('font-weight', $accordions--font-weight);
-  @include declaration('text-transform', $accordions--text-transform);
-  @include declaration('letter-spacing', $accordions--letter-spacing);
-  @include declaration('line-height', $accordions--line-height);
-  @include declaration('text-align', $accordions--text-align);
-  @include declaration('text-decoration', $accordions--text-decoration);
-  @include declaration('margin', $accordions--margin);
-  @include declaration('border-width', $accordions--border-width);
-  @include declaration('border-style', $accordions--border-style);
-  @include declaration('border-color', $accordions--border-color);
-  @include declaration('border-radius', $accordions--border-radius);
-  @include declaration('color', $accordions--color);
-  @include declaration('box-shadow', $accordions--box-shadow);
-  @include declaration('background', $accordions--background);
-  @include declaration('background-color', $accordions--background-color);
-  @include declaration('padding-top', $accordions--padding-y);
-  @include declaration('padding-bottom', $accordions--padding-y);
-  @include declaration('padding-left', $accordions--padding-x);
-  @include declaration('padding-right', $accordions--padding-x);
-  @include declaration('overflow', hidden);
+  @include selector($accordion--selector) {
+    @include declaration('font-size', $accordions--font-size);
+    @include declaration('font-family', $accordions--font-family);
+    @include declaration('font-weight', $accordions--font-weight);
+    @include declaration('text-transform', $accordions--text-transform);
+    @include declaration('letter-spacing', $accordions--letter-spacing);
+    @include declaration('line-height', $accordions--line-height);
+    @include declaration('text-align', $accordions--text-align);
+    @include declaration('text-decoration', $accordions--text-decoration);
+    @include declaration('margin', $accordions--margin);
+    @include declaration('border-width', $accordions--border-width);
+    @include declaration('border-style', $accordions--border-style);
+    @include declaration('border-color', $accordions--border-color);
+    @include declaration('border-radius', $accordions--border-radius);
+    @include declaration('color', $accordions--color);
+    @include declaration('box-shadow', $accordions--box-shadow);
+    @include declaration('background', $accordions--background);
+    @include declaration('background-color', $accordions--background-color);
+    @include declaration('padding-top', $accordions--padding-y);
+    @include declaration('padding-bottom', $accordions--padding-y);
+    @include declaration('padding-left', $accordions--padding-x);
+    @include declaration('padding-right', $accordions--padding-x);
+    @include declaration('overflow', hidden);
 
-  @include block-generation($accordion--selector);
-}
-
-
-$accordion-trigger--selector: selector--set-element($accordion--selector, 'trigger');
-
-@include selector($accordion--selector) {
-  @include declaration('display', block);
-  @include declaration('cursor', pointer);
-  @include declaration('font-size', $accordions-anchor--font-size);
-  @include declaration('font-family', $accordions-anchor--font-family);
-  @include declaration('font-weight', $accordions-anchor--font-weight);
-  @include declaration('text-transform', $accordions-anchor--text-transform);
-  @include declaration('letter-spacing', $accordions-anchor--letter-spacing);
-  @include declaration('line-height', $accordions-anchor--line-height);
-  @include declaration('text-align', $accordions-anchor--text-align);
-  @include declaration('text-decoration', $accordions-anchor--text-decoration);
-  @include declaration('margin', $accordions-anchor--margin);
-  @include declaration('border-width', $accordions-anchor--border-width);
-  @include declaration('border-style', $accordions-anchor--border-style);
-  @include declaration('border-color', $accordions-anchor--border-color);
-  @include declaration('border-radius', $accordions-anchor--border-radius);
-  @include declaration('color', $accordions-anchor--color);
-  @include declaration('box-shadow', $accordions-anchor--box-shadow);
-  @include declaration('background', $accordions-anchor--background);
-  @include declaration('background-color', $accordions-anchor--background-color);
-  @include declaration('padding-top', $accordions-anchor--padding-y);
-  @include declaration('padding-bottom', $accordions-anchor--padding-y);
-  @include declaration('padding-left', $accordions-anchor--padding-x);
-  @include declaration('padding-right', $accordions-anchor--padding-x);
-
-  @include block-generation($accordion-trigger--selector);
-}
+    @include block-generation($accordion--selector);
+  }
 
 
-$accordion-collapse--selector: selector--set-element($accordion--selector, 'collapse');
-@include selector($accordion-collapse--selector) {
-  @include declaration('font-size', $accordion-collapse--font-size);
-  @include declaration('font-family', $accordion-collapse--font-family);
-  @include declaration('font-weight', $accordion-collapse--font-weight);
-  @include declaration('text-transform', $accordion-collapse--text-transform);
-  @include declaration('letter-spacing', $accordion-collapse--letter-spacing);
-  @include declaration('line-height', $accordion-collapse--line-height);
-  @include declaration('text-align', $accordion-collapse--text-align);
-  @include declaration('text-decoration', $accordion-collapse--text-decoration);
-  @include declaration('margin', $accordion-collapse--margin);
-  @include declaration('border-width', $accordion-collapse--border-width);
-  @include declaration('border-style', $accordion-collapse--border-style);
-  @include declaration('border-color', $accordion-collapse--border-color);
-  @include declaration('border-radius', $accordion-collapse--border-radius);
-  @include declaration('color', $accordion-collapse--color);
-  @include declaration('box-shadow', $accordion-collapse--box-shadow);
-  @include declaration('background', $accordion-collapse--background);
-  @include declaration('background-color', $accordion-collapse--background-color);
-  @include declaration('padding-top', $accordion-collapse--padding-y);
-  @include declaration('padding-bottom', $accordion-collapse--padding-y);
-  @include declaration('padding-left', $accordion-collapse--padding-x);
-  @include declaration('padding-right', $accordion-collapse--padding-x);
+  $accordion-trigger--selector: selector--set-element($accordion--selector, 'trigger');
 
-  @include block-generation($accordion-collapse--selector);
+  @include selector($accordion--selector) {
+    @include declaration('display', block);
+    @include declaration('cursor', pointer);
+    @include declaration('font-size', $accordions-anchor--font-size);
+    @include declaration('font-family', $accordions-anchor--font-family);
+    @include declaration('font-weight', $accordions-anchor--font-weight);
+    @include declaration('text-transform', $accordions-anchor--text-transform);
+    @include declaration('letter-spacing', $accordions-anchor--letter-spacing);
+    @include declaration('line-height', $accordions-anchor--line-height);
+    @include declaration('text-align', $accordions-anchor--text-align);
+    @include declaration('text-decoration', $accordions-anchor--text-decoration);
+    @include declaration('margin', $accordions-anchor--margin);
+    @include declaration('border-width', $accordions-anchor--border-width);
+    @include declaration('border-style', $accordions-anchor--border-style);
+    @include declaration('border-color', $accordions-anchor--border-color);
+    @include declaration('border-radius', $accordions-anchor--border-radius);
+    @include declaration('color', $accordions-anchor--color);
+    @include declaration('box-shadow', $accordions-anchor--box-shadow);
+    @include declaration('background', $accordions-anchor--background);
+    @include declaration('background-color', $accordions-anchor--background-color);
+    @include declaration('padding-top', $accordions-anchor--padding-y);
+    @include declaration('padding-bottom', $accordions-anchor--padding-y);
+    @include declaration('padding-left', $accordions-anchor--padding-x);
+    @include declaration('padding-right', $accordions-anchor--padding-x);
+
+    @include block-generation($accordion-trigger--selector);
+  }
+
+
+  $accordion-collapse--selector: selector--set-element($accordion--selector, 'collapse');
+  @include selector($accordion-collapse--selector) {
+    @include declaration('font-size', $accordion-collapse--font-size);
+    @include declaration('font-family', $accordion-collapse--font-family);
+    @include declaration('font-weight', $accordion-collapse--font-weight);
+    @include declaration('text-transform', $accordion-collapse--text-transform);
+    @include declaration('letter-spacing', $accordion-collapse--letter-spacing);
+    @include declaration('line-height', $accordion-collapse--line-height);
+    @include declaration('text-align', $accordion-collapse--text-align);
+    @include declaration('text-decoration', $accordion-collapse--text-decoration);
+    @include declaration('margin', $accordion-collapse--margin);
+    @include declaration('border-width', $accordion-collapse--border-width);
+    @include declaration('border-style', $accordion-collapse--border-style);
+    @include declaration('border-color', $accordion-collapse--border-color);
+    @include declaration('border-radius', $accordion-collapse--border-radius);
+    @include declaration('color', $accordion-collapse--color);
+    @include declaration('box-shadow', $accordion-collapse--box-shadow);
+    @include declaration('background', $accordion-collapse--background);
+    @include declaration('background-color', $accordion-collapse--background-color);
+    @include declaration('padding-top', $accordion-collapse--padding-y);
+    @include declaration('padding-bottom', $accordion-collapse--padding-y);
+    @include declaration('padding-left', $accordion-collapse--padding-x);
+    @include declaration('padding-right', $accordion-collapse--padding-x);
+
+    @include block-generation($accordion-collapse--selector);
+  }
 }

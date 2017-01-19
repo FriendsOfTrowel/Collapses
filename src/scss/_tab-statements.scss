@@ -1,109 +1,111 @@
-/**
- * Tabs-nav
- */
+@if $tabs--enable {
+  /**
+   * Tabs-nav
+   */
 
-$tabsnav--selector: selector--constructor($collapses--synthax, 'tabs-nav');
+  $tabsnav--selector: selector--constructor($collapses--synthax, 'tabs-nav');
 
-@include selector($tabsnav--selector) {
-  @include declaration('list-style', none);
-  @include declaration('display', flex);
+  @include selector($tabsnav--selector) {
+    @include declaration('list-style', none);
+    @include declaration('display', flex);
 
-  @if $tabsnavs--padding {
-    @include declaration('padding', $tabsnavs--padding);
-  } @else {
-    @include declaration('padding-left', 0);
+    @if $tabsnavs--padding {
+      @include declaration('padding', $tabsnavs--padding);
+    } @else {
+      @include declaration('padding-left', 0);
+    }
+
+    @if $tabsnavs--margin {
+      @include declaration('margin', $tabsnavs--margin);
+    } @else {
+      @include declaration('margin-bottom', 0);
+    }
+
+    @include declaration('font-size', $tabsnavs--font-size);
+    @include declaration('font-family', $tabsnavs--font-family);
+    @include declaration('font-weight', $tabsnavs--font-weight);
+    @include declaration('text-transform', $tabsnavs--text-transform);
+    @include declaration('letter-spacing', $tabsnavs--letter-spacing);
+    @include declaration('line-height', $tabsnavs--line-height);
+    @include declaration('text-align', $tabsnavs--text-align);
+    @include declaration('text-decoration', $tabsnavs--text-decoration);
+    @include declaration('border-width', $tabsnavs--border-width);
+    @include declaration('border-style', $tabsnavs--border-style);
+    @include declaration('border-color', $tabsnavs--border-color);
+    @include declaration('border-radius', $tabsnavs--border-radius);
+    @include declaration('color', $tabsnavs--color);
+    @include declaration('box-shadow', $tabsnavs--box-shadow);
+    @include declaration('background', $tabsnavs--background);
+    @include declaration('background-color', $tabsnavs--background-color);
+
+    @include block-generation($tabsnav--selector);
   }
 
-  @if $tabsnavs--margin {
-    @include declaration('margin', $tabsnavs--margin);
-  } @else {
-    @include declaration('margin-bottom', 0);
+
+  $tabsnav-item--selector: selector--set-element($tabsnav--selector, 'item');
+  $tabsnav-item-nextto-item--selector: selector--append-parent($tabsnav-item--selector, $tabsnav-item--selector, '+');
+
+  @include selector($tabsnav-item-nextto-item--selector) {
+    @include declaration('margin-left', $tabsnavs-item--gutter);
+
+    @include block-generation($tabsnav-item-nextto-item--selector);
   }
 
-  @include declaration('font-size', $tabsnavs--font-size);
-  @include declaration('font-family', $tabsnavs--font-family);
-  @include declaration('font-weight', $tabsnavs--font-weight);
-  @include declaration('text-transform', $tabsnavs--text-transform);
-  @include declaration('letter-spacing', $tabsnavs--letter-spacing);
-  @include declaration('line-height', $tabsnavs--line-height);
-  @include declaration('text-align', $tabsnavs--text-align);
-  @include declaration('text-decoration', $tabsnavs--text-decoration);
-  @include declaration('border-width', $tabsnavs--border-width);
-  @include declaration('border-style', $tabsnavs--border-style);
-  @include declaration('border-color', $tabsnavs--border-color);
-  @include declaration('border-radius', $tabsnavs--border-radius);
-  @include declaration('color', $tabsnavs--color);
-  @include declaration('box-shadow', $tabsnavs--box-shadow);
-  @include declaration('background', $tabsnavs--background);
-  @include declaration('background-color', $tabsnavs--background-color);
 
-  @include block-generation($tabsnav--selector);
-}
+  $tabsnav-anchor--selector: selector--set-element($tabsnav--selector, 'anchor');
 
+  @include selector($tabsnav-anchor--selector) {
+    @include declaration('cursor', pointer);
+    @include declaration('cursor', default, '~active');
+    @include declaration('display', block);
+    @include declaration('font-size', $tabsnavs-anchor--font-size);
+    @include declaration('font-family', $tabsnavs-anchor--font-family);
+    @include declaration('font-weight', $tabsnavs-anchor--font-weight);
+    @include declaration('text-transform', $tabsnavs-anchor--text-transform);
+    @include declaration('letter-spacing', $tabsnavs-anchor--letter-spacing);
+    @include declaration('line-height', $tabsnavs-anchor--line-height);
+    @include declaration('text-align', $tabsnavs-anchor--text-align);
+    @include declaration('text-decoration', $tabsnavs-anchor--text-decoration);
+    @include declaration('margin', $tabsnavs-anchor--margin);
+    @include declaration('border-width', $tabsnavs-anchor--border-width);
+    @include declaration('border-style', $tabsnavs-anchor--border-style);
+    @include declaration('border-color', $tabsnavs-anchor--border-color);
+    @include declaration('border-radius', $tabsnavs-anchor--border-radius);
+    @include declaration('color', $tabsnavs-anchor--color);
+    @include declaration('box-shadow', $tabsnavs-anchor--box-shadow);
+    @include declaration('background', $tabsnavs-anchor--background);
+    @include declaration('background-color', $tabsnavs-anchor--background-color);
+    @include declaration('padding', $tabsnavs-anchor--padding);
 
-$tabsnav-item--selector: selector--set-element($tabsnav--selector, 'item');
-$tabsnav-item-nextto-item--selector: selector--append-parent($tabsnav-item--selector, $tabsnav-item--selector, '+');
-
-@include selector($tabsnav-item-nextto-item--selector) {
-  @include declaration('margin-left', $tabsnavs-item--gutter);
-
-  @include block-generation($tabsnav-item-nextto-item--selector);
-}
-
-
-$tabsnav-anchor--selector: selector--set-element($tabsnav--selector, 'anchor');
-
-@include selector($tabsnav-anchor--selector) {
-  @include declaration('cursor', pointer);
-  @include declaration('cursor', default, '~active');
-  @include declaration('display', block);
-  @include declaration('font-size', $tabsnavs-anchor--font-size);
-  @include declaration('font-family', $tabsnavs-anchor--font-family);
-  @include declaration('font-weight', $tabsnavs-anchor--font-weight);
-  @include declaration('text-transform', $tabsnavs-anchor--text-transform);
-  @include declaration('letter-spacing', $tabsnavs-anchor--letter-spacing);
-  @include declaration('line-height', $tabsnavs-anchor--line-height);
-  @include declaration('text-align', $tabsnavs-anchor--text-align);
-  @include declaration('text-decoration', $tabsnavs-anchor--text-decoration);
-  @include declaration('margin', $tabsnavs-anchor--margin);
-  @include declaration('border-width', $tabsnavs-anchor--border-width);
-  @include declaration('border-style', $tabsnavs-anchor--border-style);
-  @include declaration('border-color', $tabsnavs-anchor--border-color);
-  @include declaration('border-radius', $tabsnavs-anchor--border-radius);
-  @include declaration('color', $tabsnavs-anchor--color);
-  @include declaration('box-shadow', $tabsnavs-anchor--box-shadow);
-  @include declaration('background', $tabsnavs-anchor--background);
-  @include declaration('background-color', $tabsnavs-anchor--background-color);
-  @include declaration('padding', $tabsnavs-anchor--padding);
-
-  @include block-generation($tabsnav-anchor--selector);
-}
+    @include block-generation($tabsnav-anchor--selector);
+  }
 
 
-/**
- * Tabs-collapse
- */
+  /**
+   * Tabs-collapse
+   */
 
-$tabscollapses--selector: selector--constructor($collapses--synthax, 'tabs-collapses');
-@include selector($tabscollapses--selector) {
-  @include declaration('font-size', $tabscollapses--font-size);
-  @include declaration('font-family', $tabscollapses--font-family);
-  @include declaration('font-weight', $tabscollapses--font-weight);
-  @include declaration('text-transform', $tabscollapses--text-transform);
-  @include declaration('letter-spacing', $tabscollapses--letter-spacing);
-  @include declaration('line-height', $tabscollapses--line-height);
-  @include declaration('text-align', $tabscollapses--text-align);
-  @include declaration('text-decoration', $tabscollapses--text-decoration);
-  @include declaration('margin', $tabscollapses--margin);
-  @include declaration('border-width', $tabscollapses--border-width);
-  @include declaration('border-style', $tabscollapses--border-style);
-  @include declaration('border-color', $tabscollapses--border-color);
-  @include declaration('border-radius', $tabscollapses--border-radius);
-  @include declaration('color', $tabscollapses--color);
-  @include declaration('box-shadow', $tabscollapses--box-shadow);
-  @include declaration('background', $tabscollapses--background);
-  @include declaration('background-color', $tabscollapses--background-color);
-  @include declaration('padding', $tabscollapses--padding);
+  $tabscollapses--selector: selector--constructor($collapses--synthax, 'tabs-collapses');
+  @include selector($tabscollapses--selector) {
+    @include declaration('font-size', $tabscollapses--font-size);
+    @include declaration('font-family', $tabscollapses--font-family);
+    @include declaration('font-weight', $tabscollapses--font-weight);
+    @include declaration('text-transform', $tabscollapses--text-transform);
+    @include declaration('letter-spacing', $tabscollapses--letter-spacing);
+    @include declaration('line-height', $tabscollapses--line-height);
+    @include declaration('text-align', $tabscollapses--text-align);
+    @include declaration('text-decoration', $tabscollapses--text-decoration);
+    @include declaration('margin', $tabscollapses--margin);
+    @include declaration('border-width', $tabscollapses--border-width);
+    @include declaration('border-style', $tabscollapses--border-style);
+    @include declaration('border-color', $tabscollapses--border-color);
+    @include declaration('border-radius', $tabscollapses--border-radius);
+    @include declaration('color', $tabscollapses--color);
+    @include declaration('box-shadow', $tabscollapses--box-shadow);
+    @include declaration('background', $tabscollapses--background);
+    @include declaration('background-color', $tabscollapses--background-color);
+    @include declaration('padding', $tabscollapses--padding);
 
-  @include block-generation($tabscollapses--selector);
+    @include block-generation($tabscollapses--selector);
+  }
 }
