@@ -1,5 +1,10 @@
 class TrowelCollapses {
     constructor(elements) {
+        // If `elements` is a nodelist transform it into a array
+        if (elements == '[object NodeList]') {
+            elements = Array.prototype.slice.call(elements);
+        }
+
         elements.forEach(element => new TrowelCollapse(element));
     }
 }
@@ -51,7 +56,7 @@ class TrowelCollapse {
     }
 
     get groupName () {
-        return this.collapse.dataset.group;
+        return this.collapse.getAttribute('data-group');
     }
 
     get isEffectingOtherCollapsesFromGroup () {
@@ -109,11 +114,11 @@ class TrowelCollapseTrigger {
     }
 
     get activeclass () {
-        return this.domEl.dataset.activeclass;
+        return this.domEl.getAttribute('data-activeclass');
     }
 
     get action () {
-        return this.domEl.dataset.collapse;
+        return this.domEl.getAttribute('data-collapse');
     }
 
     get isToggleAction () {
