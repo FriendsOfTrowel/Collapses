@@ -3,7 +3,7 @@
    * accordion
    */
 
-  $accordion--selector: selector--constructor($accordions--synthax, 'accordion');
+  $accordion--selector: selector--constructor($accordions--syntax, 'accordion');
 
   @include selector($accordion--selector) {
     @include declaration('font-size', $accordions--font-size);

@@ -3,7 +3,7 @@
    * Tabs-nav
    */
 
-  $tabsnav--selector: selector--constructor($collapses--synthax, 'tabs-nav');
+  $tabsnav--selector: selector--constructor($collapses--syntax, 'tabs-nav');
 
   @include selector($tabsnav--selector) {
     @include declaration('list-style', none);
@@ -85,7 +85,7 @@
    * Tabs-collapse
    */
 
-  $tabscollapses--selector: selector--constructor($collapses--synthax, 'tabs-collapses');
+  $tabscollapses--selector: selector--constructor($collapses--syntax, 'tabs-collapses');
   @include selector($tabscollapses--selector) {
     @include declaration('font-size', $tabscollapses--font-size);
     @include declaration('font-family', $tabscollapses--font-family);
