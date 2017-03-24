@@ -2,37 +2,30 @@
  * Collapses
  */
 
-@mixin mixin-dispatcher($value, $flags, $mixin) {
-  @if $mixin == 'collapses--mixin-example' {
-    @include collapses--mixin-example($value, $flags);
-  }
-};
-
-
 $collapse--selector: selector(new 'collapse' with $collapses--syntax);
 
 @include statement($collapse--selector, (
-  (font-size, $collapses--font-size),
-  (font-family, $collapses--font-family),
-  (font-weight, $collapses--font-weight),
-  (text-transform, $collapses--text-transform),
-  (letter-spacing, $collapses--letter-spacing),
-  (line-height, $collapses--line-height),
-  (text-align, $collapses--text-align),
-  (text-decoration, $collapses--text-decoration),
-  (margin, $collapses--margin),
-  (border-width, $collapses--border-width),
-  (border-style, $collapses--border-style),
-  (border-color, $collapses--border-color),
-  (border-radius, $collapses--border-radius),
-  (color, $collapses--color),
-  (box-shadow, $collapses--box-shadow),
-  (background, $collapses--background),
-  (background-color, $collapses--background-color),
-  (padding-top, $collapses--padding-y),
-  (padding-bottom, $collapses--padding-y),
-  (padding-left, $collapses--padding-x),
-  (padding-right, $collapses--padding-x),
-  (display, none),
-  (display, block, ('[data-state="visible"')),
+  ('font-size', $collapses--font-size),
+  ('font-family', $collapses--font-family),
+  ('font-weight', $collapses--font-weight),
+  ('text-transform', $collapses--text-transform),
+  ('letter-spacing', $collapses--letter-spacing),
+  ('line-height', $collapses--line-height),
+  ('text-align', $collapses--text-align),
+  ('text-decoration', $collapses--text-decoration),
+  ('margin', $collapses--margin),
+  ('border-width', $collapses--border-width),
+  ('border-style', $collapses--border-style),
+  ('border-color', $collapses--border-color),
+  ('border-radius', $collapses--border-radius),
+  ('color', $collapses--color),
+  ('box-shadow', $collapses--box-shadow),
+  ('background', $collapses--background),
+  ('background-color', $collapses--background-color),
+  ('padding-top', $collapses--padding-y),
+  ('padding-bottom', $collapses--padding-y),
+  ('padding-left', $collapses--padding-x),
+  ('padding-right', $collapses--padding-x),
+  ('display', none),
+  ('display', block, ('[data-state="visible"')),
 ));
