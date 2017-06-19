@@ -1,5 +1,2 @@
-body {
-  font-family: 'Open Sans', sans-serif;
-}
-
-@import './trowel-collapses';
+@import 'bower_components/trowel-core/src/trowel';
+@import '../../src/scss/collapses';

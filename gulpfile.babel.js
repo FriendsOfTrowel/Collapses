@@ -30,8 +30,8 @@ const report_error = error => {
 // Style
 // =====
 
-const scssCompilation = (src, dest) => {
-    return gulp.src(src)
+gulp.task('style', function() {
+    return gulp.src('./test/src/style.scss')
         .pipe($.sourcemaps.init())
         .pipe($.sass({
             precision: 6,
@@ -52,33 +52,17 @@ const scssCompilation = (src, dest) => {
             ]
         }))
         .pipe($.sourcemaps.write())
-        .pipe(gulp.dest(dest));
-}
-
-gulp.task('style_test', () => scssCompilation('./test/src/style.scss', './test/dest'));
-gulp.task('style_dest', () => scssCompilation('./test/src/trowel-drops.scss', './dest/css'));
-gulp.task('style', ['style_test', 'style_dest']);
-
-
-// Javascript
-// ==========
-
-let jsTranspilation = (src, dest) => {
-    return gulp.src(src)
-        .pipe($.sourcemaps.init())
-        .pipe($.babel({
-            presets: ['es2015']
-        }))
-        .pipe($.sourcemaps.write())
-        .pipe(gulp.dest(dest));
-}
-
-gulp.task('script_test', () => jsTranspilation('./src/javascript/collapses.js', './test/dest/javascript'));
-gulp.task('script_dest', () => jsTranspilation('./src/javascript/collapses.js', './dest/javascript'));
-gulp.task('script', ['script_test', 'script_dest']);
+        .pipe(gulp.dest('./test/dest'))
+        .pipe($.rename({ basename: 'collapses' }))
+        .pipe(gulp.dest('./dest/css'))
+        .pipe($.cssmin())
+        .pipe($.rename({ suffix: ".min" }))
+        .pipe(gulp.dest('./dest/css'))
+    ;
+});
 
 
-gulp.task('default', ['style', 'template_test', 'script']);
+gulp.task('default', ['style', 'template_test']);
 gulp.task('watch', ['default'], () => {
   browserSync({
     notify: false,
@@ -88,5 +72,4 @@ gulp.task('watch', ['default'], () => {
 
   gulp.watch('./**/*.scss', ['style', reload]);
   gulp.watch(['test/src/**/*.html'], ['template_test', reload]);
-  gulp.watch('./src/javascript/**/*', ['script', reload]);
 });

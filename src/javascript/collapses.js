@@ -1,147 +1,182 @@
-class TrowelCollapses {
-    constructor(elements) {
-        // If `elements` is a nodelist transform it into a array
-        if (elements == '[object NodeList]') {
-            elements = Array.prototype.slice.call(elements);
-        }
-
-        elements.forEach(element => new TrowelCollapse(element));
-    }
+export default class TrowelCollapses {
+  constructor(elements) {
+    elements.forEach(function(element, index) {
+      let element_obj = new TrowelCollapse(element);
+    })
+  }
 }
 
 class TrowelCollapse {
-    constructor(collapse, nested = true) {
-        this.collapse = collapse;
-        this.nested = nested;
+  constructor(collapse, nested = true) {
+    this.collapse = collapse;
+    this.nested = nested;
 
-        if (this.isVisible) {
-            this.show()
-        } else {
-            this.hide();
-        }
+    this.isVisible ? this.show() : this.hide();
 
-        return this.listeners();
+    this.listener();
+    this.collapse.dispatchEvent(this.events.mounted);
+    return;
+  }
+
+  show() {
+    this.collapse.dispatchEvent(this.events.show);
+    this.collapse.setAttribute('data-state', 'visible');
+    this.triggers.map(trigger => trigger.addActiveclass());
+    this.otherCollapsesFromGroup.forEach(collapse => collapse.hide());
+    this.collapse.dispatchEvent(this.events.shown);
+    return;
+  }
+
+  hide() {
+    this.collapse.dispatchEvent(this.events.hide);
+    this.collapse.setAttribute('data-state', 'hidden');
+    this.triggers.map(trigger => trigger.removeActiveclass());
+    this.collapse.dispatchEvent(this.events.hidden);
+    return;
+  }
+
+  toggle() {
+    this.collapse.dispatchEvent(this.events.toggle);
+
+    if (this.isVisible) {
+      this.hide();
+    } else {
+      this.show();
     }
 
-    show() {
-        this.collapse.setAttribute('data-state', 'visible');
+    this.collapse.dispatchEvent(this.events.toggled);
+    return;
+  }
 
-        this.triggers
-            .forEach(trigger => trigger.addActiveclass());
+  get isVisible () {
+    return this.collapse.getAttribute('data-state') == 'visible';
+  }
 
-        this.otherCollapsesFromGroup
-            .forEach(collapse => collapse.hide());
-        return;
-    }
+  get groupName () {
+    return this.collapse.getAttribute('data-group');
+  }
 
-    hide() {
-        this.collapse.setAttribute('data-state', 'hidden');
+  get isEffectingOtherCollapsesFromGroup () {
+    return this.groupName && this.nested;
+  }
 
-        this.triggers
-            .forEach(trigger => trigger.removeActiveclass());
-        return;
-    }
+  get otherCollapsesFromGroup () {
+    if (!this.isEffectingOtherCollapsesFromGroup) return [];
+    const groupList = document.querySelectorAll(`[data-group="${this.groupName}"]`);
 
-    toggle() {
-        if (this.isVisible) return this.hide();
-        return this.show();
-    }
+    return [].slice.call(groupList) // convert the nodelist as array
+      .filter(collapse => collapse != this.collapse) // exclude `this` from the arr
+      .map(collapse => new TrowelCollapse(collapse, false))
+  }
 
-    get isVisible () {
-        return this.collapse.getAttribute('data-state') == 'visible';
-    }
+  listener() {
+    if (!this.nested) return false;
 
-    get isHidden () {
-        return this.collapse.getAttribute('data-state') == 'hidden';
-    }
+    this.toggleTriggers
+      .map(trigger => trigger.domEl.addEventListener('click', this.toggle.bind(this)));
 
-    get groupName () {
-        return this.collapse.getAttribute('data-group');
-    }
+    this.showTriggers
+      .map(trigger => trigger.domEl.addEventListener('click', this.show.bind(this)));
 
-    get isEffectingOtherCollapsesFromGroup () {
-        return this.groupName && this.nested;
-    }
+    this.hideTriggers
+      .map(trigger => trigger.domEl.addEventListener('click', this.hide.bind(this)));
+  }
 
-    get otherCollapsesFromGroup () {
-        if (!this.isEffectingOtherCollapsesFromGroup) return [];
-        const groupList = document.querySelectorAll(`[data-group="${this.groupName}"]`);
+  get triggers () {
+    const triggerDomList = document.querySelectorAll(`[data-collapse][data-href="#${this.collapse.id}"]`);
 
-        return Array.prototype.slice.call(groupList) // convert the nodelist as array
-            .filter(collapse => collapse != this.collapse) // exclude `this` from the arr
-            .map(collapse => new TrowelCollapse(collapse, false))
-    }
+    return Array.prototype.slice.call(triggerDomList) // convert the nodelist as array
+      .map(trigger => new TrowelCollapseTrigger(trigger));
+  }
 
-    listeners() {
-        if (!this.nested) return false;
+  get toggleTriggers () {
+    return this.triggers
+      .filter(trigger => trigger.isToggleAction);
+  }
 
-        this.toggleTriggers
-            .forEach(trigger => trigger.domEl.addEventListener('click', () => this.toggle()));
+  get showTriggers () {
+    return this.triggers
+      .filter(trigger => trigger.isShowAction);
+  }
 
-        this.showTriggers
-            .forEach(trigger => trigger.domEl.addEventListener('click', () => this.show()));
+  get hideTriggers () {
+    return this.triggers
+      .filter(trigger => trigger.isHideAction);
+  }
 
-        this.hideTriggers
-            .forEach(trigger => trigger.domEl.addEventListener('click', () => this.hide()));
-    }
+  get events() {
+    const show = new Event('trowel.collapse.show');
+    const shown = new Event('trowel.collapse.shown');
+    const hide = new Event('trowel.collapse.hide');
+    const hidden = new Event('trowel.collapse.hidden');
+    const toggle = new Event('trowel.collapse.toggle');
+    const toggled = new Event('trowel.collapse.toggled');
+    const mounted = new Event('trowel.collapse.mounted');
 
-    get triggers () {
-        const triggerDomList = document.querySelectorAll(`[data-collapse][data-href="#${this.collapse.id}"]`);
-        return Array.prototype.slice.call(triggerDomList) // convert the nodelist as array
-            .map(trigger => new TrowelCollapseTrigger(trigger));
-    }
-
-    get toggleTriggers () {
-        return this.triggers
-            .filter(trigger => trigger.isToggleAction);
-    }
-
-    get showTriggers () {
-        return this.triggers
-            .filter(trigger => trigger.isShowAction);
-    }
-
-    get hideTriggers () {
-        return this.triggers
-            .filter(trigger => trigger.isHideAction);
-    }
+    return { show, shown, hide, hidden, toggle, toggled, mounted };
+  }
 }
 
 
 class TrowelCollapseTrigger {
-    constructor(domEl) {
-        this.domEl = domEl;
-    }
+  constructor(domEl) {
+    this.domEl = domEl;
 
-    get activeclass () {
-        return this.domEl.getAttribute('data-activeclass');
-    }
+    this.domEl.dispatchEvent(this.events.mounted);
+    return;
+  }
 
-    get action () {
-        return this.domEl.getAttribute('data-collapse');
-    }
+  get activeclass () {
+    return this.domEl.getAttribute('data-activeclass');
+  }
 
-    get isToggleAction () {
-        return this.action == 'toggle';
-    }
+  get action () {
+    return this.domEl.getAttribute('data-collapse');
+  }
 
-    get isShowAction () {
-        return this.action == 'show';
-    }
+  get isToggleAction () {
+    return this.action == 'toggle';
+  }
 
-    get isHideAction () {
-        return this.action == 'hide';
-    }
+  get isShowAction () {
+    return this.action == 'show';
+  }
 
-    addActiveclass() {
-        return this.domEl.classList.add(this.activeclass);
-    }
+  get isHideAction () {
+    this.action == 'hide';
+    return;
+  }
 
-    removeActiveclass() {
-        return this.domEl.classList.remove(this.activeclass);
-    }
+  addActiveclass() {
+    this.domEl.dispatchEvent(this.events.activate);
+    this.domEl.classList.add(this.activeclass);
+    this.domEl.dispatchEvent(this.events.activated);
+    return;
+  }
 
-    toggleActiveclass() {
-        return this.domEl.classList.toggle(this.activeclass);
-    }
+  removeActiveclass() {
+    this.domEl.dispatchEvent(this.events.desactivate);
+    this.domEl.classList.remove(this.activeclass);
+    this.domEl.dispatchEvent(this.events.desactivated);
+    return;
+  }
+
+  toggleActiveclass() {
+    this.domEl.dispatchEvent(this.events.toggle);
+    this.domEl.classList.toggle(this.activeclass);
+    this.domEl.dispatchEvent(this.events.toggled);
+    return;
+  }
+
+  get events() {
+    const activate = new Event('trowel.collapse.trigger.activate');
+    const activated = new Event('trowel.collapse.trigger.activated');
+    const desactivate = new Event('trowel.collapse.desactivate.hide');
+    const desactivated = new Event('trowel.collapse.desactivated.hidden');
+    const toggle = new Event('trowel.collapse.trigger.toggle');
+    const toggled = new Event('trowel.collapse.trigger.toggled');
+    const mounted = new Event('trowel.collapse.trigger.mounted');
+
+    return { activate, activated, desactivate, desactivated, toggle, toggled, mounted };
+  }
 }
