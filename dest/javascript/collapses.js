@@ -112,12 +112,15 @@ var TrowelCollapse = function () {
 
     this.isVisible ? this.show() : this.hide();
 
-    return this.listeners();
+    this.listener();
+    this.collapse.dispatchEvent(this.events.mounted);
+    return;
   }
 
   _createClass(TrowelCollapse, [{
     key: 'show',
     value: function show() {
+      this.collapse.dispatchEvent(this.events.show);
       this.collapse.setAttribute('data-state', 'visible');
       this.triggers.map(function (trigger) {
         return trigger.addActiveclass();
@@ -125,26 +128,37 @@ var TrowelCollapse = function () {
       this.otherCollapsesFromGroup.forEach(function (collapse) {
         return collapse.hide();
       });
+      this.collapse.dispatchEvent(this.events.shown);
       return;
     }
   }, {
     key: 'hide',
     value: function hide() {
+      this.collapse.dispatchEvent(this.events.hide);
       this.collapse.setAttribute('data-state', 'hidden');
       this.triggers.map(function (trigger) {
         return trigger.removeActiveclass();
       });
+      this.collapse.dispatchEvent(this.events.hidden);
       return;
     }
   }, {
     key: 'toggle',
     value: function toggle() {
-      if (this.isVisible) return this.hide();
-      return this.show();
+      this.collapse.dispatchEvent(this.events.toggle);
+
+      if (this.isVisible) {
+        this.hide();
+      } else {
+        this.show();
+      }
+
+      this.collapse.dispatchEvent(this.events.toggled);
+      return;
     }
   }, {
-    key: 'listeners',
-    value: function listeners() {
+    key: 'listener',
+    value: function listener() {
       var _this = this;
 
       if (!this.nested) return false;
@@ -223,6 +237,19 @@ var TrowelCollapse = function () {
         return trigger.isHideAction;
       });
     }
+  }, {
+    key: 'events',
+    get: function get() {
+      var show = new Event('trowel.collapse.show');
+      var shown = new Event('trowel.collapse.shown');
+      var hide = new Event('trowel.collapse.hide');
+      var hidden = new Event('trowel.collapse.hidden');
+      var toggle = new Event('trowel.collapse.toggle');
+      var toggled = new Event('trowel.collapse.toggled');
+      var mounted = new Event('trowel.collapse.mounted');
+
+      return { show: show, shown: shown, hide: hide, hidden: hidden, toggle: toggle, toggled: toggled, mounted: mounted };
+    }
   }]);
 
   return TrowelCollapse;
@@ -233,22 +260,34 @@ var TrowelCollapseTrigger = function () {
     _classCallCheck(this, TrowelCollapseTrigger);
 
     this.domEl = domEl;
+
+    this.domEl.dispatchEvent(this.events.mounted);
+    return;
   }
 
   _createClass(TrowelCollapseTrigger, [{
     key: 'addActiveclass',
     value: function addActiveclass() {
-      return this.domEl.classList.add(this.activeclass);
+      this.domEl.dispatchEvent(this.events.activate);
+      this.domEl.classList.add(this.activeclass);
+      this.domEl.dispatchEvent(this.events.activated);
+      return;
     }
   }, {
     key: 'removeActiveclass',
     value: function removeActiveclass() {
-      return this.domEl.classList.remove(this.activeclass);
+      this.domEl.dispatchEvent(this.events.desactivate);
+      this.domEl.classList.remove(this.activeclass);
+      this.domEl.dispatchEvent(this.events.desactivated);
+      return;
     }
   }, {
     key: 'toggleActiveclass',
     value: function toggleActiveclass() {
-      return this.domEl.classList.toggle(this.activeclass);
+      this.domEl.dispatchEvent(this.events.toggle);
+      this.domEl.classList.toggle(this.activeclass);
+      this.domEl.dispatchEvent(this.events.toggled);
+      return;
     }
   }, {
     key: 'activeclass',
@@ -273,7 +312,21 @@ var TrowelCollapseTrigger = function () {
   }, {
     key: 'isHideAction',
     get: function get() {
-      return this.action == 'hide';
+      this.action == 'hide';
+      return;
+    }
+  }, {
+    key: 'events',
+    get: function get() {
+      var activate = new Event('trowel.collapse.trigger.activate');
+      var activated = new Event('trowel.collapse.trigger.activated');
+      var desactivate = new Event('trowel.collapse.desactivate.hide');
+      var desactivated = new Event('trowel.collapse.desactivated.hidden');
+      var toggle = new Event('trowel.collapse.trigger.toggle');
+      var toggled = new Event('trowel.collapse.trigger.toggled');
+      var mounted = new Event('trowel.collapse.trigger.mounted');
+
+      return { activate: activate, activated: activated, desactivate: desactivate, desactivated: desactivated, toggle: toggle, toggled: toggled, mounted: mounted };
     }
   }]);
 
