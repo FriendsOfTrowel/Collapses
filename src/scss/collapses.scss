@@ -1,9 +1,14 @@
-@import 'variables/syntax';
+/**
+ * Collapses
+ */
 
-@import 'variables/collapse-theme';
-@import 'variables/accordion-theme';
-@import 'variables/tab-theme';
+@import 'utils/enables';
+@import 'utils/syntaxes';
 
-@import 'collapse-statements';
-@import 'accordion-statements';
-@import 'tab-statements';
+@import 'utils/collapses-trowel-variables';
+@import 'utils/accordions-trowel-variables';
+@import 'utils/tabs-trowel-variables';
+
+@import 'statements/collapses';
+@import 'statements/accordions';
+@import 'statements/tabs';
