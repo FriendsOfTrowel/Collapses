@@ -143,8 +143,7 @@ class TrowelCollapseTrigger {
   }
 
   get isHideAction () {
-    this.action == 'hide';
-    return;
+    return this.action == 'hide';
   }
 
   addActiveclass() {
