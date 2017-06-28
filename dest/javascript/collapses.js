@@ -312,8 +312,7 @@ var TrowelCollapseTrigger = function () {
   }, {
     key: 'isHideAction',
     get: function get() {
-      this.action == 'hide';
-      return;
+      return this.action == 'hide';
     }
   }, {
     key: 'events',
