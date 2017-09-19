@@ -89,13 +89,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _events = __webpack_require__(1);
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var TrowelCollapses = function TrowelCollapses(elements) {
+var TrowelCollapses = function TrowelCollapses(collapses) {
   _classCallCheck(this, TrowelCollapses);
 
-  elements.forEach(function (element, index) {
-    var element_obj = new TrowelCollapse(element);
+  return collapses.map(function (collapse) {
+    return new TrowelCollapse(collapse);
   });
 };
 
@@ -240,13 +242,13 @@ var TrowelCollapse = function () {
   }, {
     key: 'events',
     get: function get() {
-      var show = new Event('trowel.collapse.show');
-      var shown = new Event('trowel.collapse.shown');
-      var hide = new Event('trowel.collapse.hide');
-      var hidden = new Event('trowel.collapse.hidden');
-      var toggle = new Event('trowel.collapse.toggle');
-      var toggled = new Event('trowel.collapse.toggled');
-      var mounted = new Event('trowel.collapse.mounted');
+      var show = (0, _events.createNewEvent)('trowel.collapse.show');
+      var shown = (0, _events.createNewEvent)('trowel.collapse.shown');
+      var hide = (0, _events.createNewEvent)('trowel.collapse.hide');
+      var hidden = (0, _events.createNewEvent)('trowel.collapse.hidden');
+      var toggle = (0, _events.createNewEvent)('trowel.collapse.toggle');
+      var toggled = (0, _events.createNewEvent)('trowel.collapse.toggled');
+      var mounted = (0, _events.createNewEvent)('trowel.collapse.mounted');
 
       return { show: show, shown: shown, hide: hide, hidden: hidden, toggle: toggle, toggled: toggled, mounted: mounted };
     }
@@ -317,13 +319,13 @@ var TrowelCollapseTrigger = function () {
   }, {
     key: 'events',
     get: function get() {
-      var activate = new Event('trowel.collapse.trigger.activate');
-      var activated = new Event('trowel.collapse.trigger.activated');
-      var desactivate = new Event('trowel.collapse.desactivate.hide');
-      var desactivated = new Event('trowel.collapse.desactivated.hidden');
-      var toggle = new Event('trowel.collapse.trigger.toggle');
-      var toggled = new Event('trowel.collapse.trigger.toggled');
-      var mounted = new Event('trowel.collapse.trigger.mounted');
+      var activate = (0, _events.createNewEvent)('trowel.collapse.trigger.activate');
+      var activated = (0, _events.createNewEvent)('trowel.collapse.trigger.activated');
+      var desactivate = (0, _events.createNewEvent)('trowel.collapse.desactivate.hide');
+      var desactivated = (0, _events.createNewEvent)('trowel.collapse.desactivated.hidden');
+      var toggle = (0, _events.createNewEvent)('trowel.collapse.trigger.toggle');
+      var toggled = (0, _events.createNewEvent)('trowel.collapse.trigger.toggled');
+      var mounted = (0, _events.createNewEvent)('trowel.collapse.trigger.mounted');
 
       return { activate: activate, activated: activated, desactivate: desactivate, desactivated: desactivated, toggle: toggle, toggled: toggled, mounted: mounted };
     }
@@ -333,6 +335,27 @@ var TrowelCollapseTrigger = function () {
 }();
 
 module.exports = exports['default'];
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var createNewEvent = exports.createNewEvent = function createNewEvent(eventName) {
+  if (typeof Event === 'function') {
+    var event = new Event(eventName);
+  } else {
+    var event = document.createEvent('Event');
+    event.initEvent(eventName, true, true);
+  }
+
+  return event;
+};
 
 /***/ })
 /******/ ]);

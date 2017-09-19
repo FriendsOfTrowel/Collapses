@@ -1,8 +1,8 @@
+import { createNewEvent } from './utils/events'
+
 export default class TrowelCollapses {
-  constructor(elements) {
-    elements.forEach(function(element, index) {
-      let element_obj = new TrowelCollapse(element);
-    })
+  constructor(collapses) {
+    return collapses.map(collapse => new TrowelCollapse(collapse))
   }
 }
 
@@ -105,13 +105,13 @@ class TrowelCollapse {
   }
 
   get events() {
-    const show = new Event('trowel.collapse.show');
-    const shown = new Event('trowel.collapse.shown');
-    const hide = new Event('trowel.collapse.hide');
-    const hidden = new Event('trowel.collapse.hidden');
-    const toggle = new Event('trowel.collapse.toggle');
-    const toggled = new Event('trowel.collapse.toggled');
-    const mounted = new Event('trowel.collapse.mounted');
+    const show = createNewEvent('trowel.collapse.show');
+    const shown = createNewEvent('trowel.collapse.shown');
+    const hide = createNewEvent('trowel.collapse.hide');
+    const hidden = createNewEvent('trowel.collapse.hidden');
+    const toggle = createNewEvent('trowel.collapse.toggle');
+    const toggled = createNewEvent('trowel.collapse.toggled');
+    const mounted = createNewEvent('trowel.collapse.mounted');
 
     return { show, shown, hide, hidden, toggle, toggled, mounted };
   }
@@ -168,13 +168,13 @@ class TrowelCollapseTrigger {
   }
 
   get events() {
-    const activate = new Event('trowel.collapse.trigger.activate');
-    const activated = new Event('trowel.collapse.trigger.activated');
-    const desactivate = new Event('trowel.collapse.desactivate.hide');
-    const desactivated = new Event('trowel.collapse.desactivated.hidden');
-    const toggle = new Event('trowel.collapse.trigger.toggle');
-    const toggled = new Event('trowel.collapse.trigger.toggled');
-    const mounted = new Event('trowel.collapse.trigger.mounted');
+    const activate = createNewEvent('trowel.collapse.trigger.activate');
+    const activated = createNewEvent('trowel.collapse.trigger.activated');
+    const desactivate = createNewEvent('trowel.collapse.desactivate.hide');
+    const desactivated = createNewEvent('trowel.collapse.desactivated.hidden');
+    const toggle = createNewEvent('trowel.collapse.trigger.toggle');
+    const toggled = createNewEvent('trowel.collapse.trigger.toggled');
+    const mounted = createNewEvent('trowel.collapse.trigger.mounted');
 
     return { activate, activated, desactivate, desactivated, toggle, toggled, mounted };
   }
