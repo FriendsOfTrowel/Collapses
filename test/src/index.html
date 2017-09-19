@@ -87,7 +87,8 @@
     <script src="./javascript/collapses.js"></script>
 
     <script type="text/javascript">
-        var drops = new TrowelCollapses(document.querySelectorAll('[data-flag="collapse"]'));
+        var collapsesElements =  [].slice.call(document.querySelectorAll('[data-flag="collapse"]'));
+        var collapses = new TrowelCollapses(collapsesElements);
     </script>
   </body>
 </html>
